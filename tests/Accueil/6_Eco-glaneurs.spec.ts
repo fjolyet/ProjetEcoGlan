@@ -15,7 +15,7 @@ test('Test Eco-Glaneurs', async ({ page }) => {
         await page.getByRole('textbox', { name: 'Mot de passe*' }).fill('@Password2025');
         await page.getByRole('button', { name: 'Connexion'}).click();
 
-        await page.getByRole('link', { name: 'Eco‑glaneurs' }).click();
+        await page.getByRole('link', { name:  /Eco.?glaneur/i  }).click();
 
         await expect(page).toHaveURL('https://dev.ecoglan.fr/admin/users/gleaner');
         await expect(page).toHaveTitle("Liste des Eco-glaneurs");
@@ -73,14 +73,9 @@ test('Test Eco-Glaneurs', async ({ page }) => {
 
 
        await expect(page.getByText('Prénom', {exact :true}).first()).toBeVisible();
-       await expect(page.getByText('Prénom', {exact :true}).first()).toBeEditable();
-    // //    await expect(page.getByText('Prénom', {exact :true}).first()).toContainText('Guy'); 
-    //    await expect(page.getByRole('textbox', { name: 'Prénom*' })).toContainText('Guy');   
+       await expect(page.getByText('Prénom', {exact :true}).first()).toBeEditable();  
        
        await expect(page.getByPlaceholder('Entrez votre prénom')).toContainText('');
-    //    await expect(page.getByText('Nom de famille', {exact :true}).first()).toBeVisible();
-    //    await expect(page.getByText('Nom de famille', {exact :true}).first()).toBeEditable();
-    //    await expect(page.getByText('Nom de famille', {exact :true}).first()).toContainText('MARCHAND');
 
 
 

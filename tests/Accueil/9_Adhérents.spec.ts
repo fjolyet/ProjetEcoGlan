@@ -26,19 +26,22 @@ test('Test Onglet Adhérents', async ({ page }) => {
 
         await expect (page.getByRole('combobox', { name :'Afficher :'})).toContainText('10 par page');
 
-        await page.getByLabel('Afficher :').selectOption('10');
-        await page.goto('https://dev.ecoglan.fr/admin/adherents?search=admin%40test.fr&limit=10');
-        await page.getByLabel('Afficher :').selectOption('50');
-        await page.goto('https://dev.ecoglan.fr/admin/adherents?search=admin%40test.fr&limit=50');
-        await page.getByLabel('Afficher :').selectOption('100');
-        await page.goto('https://dev.ecoglan.fr/admin/adherents?search=admin%40test.fr&limit=100');
-        await page.getByRole('searchbox', { name: 'Rechercher' }).click();
+        // await page.getByR('Afficher :').selectOption('10');
+        await page.getByRole('combobox', { name :'Afficher :'}).selectOption('10')
+        await expect(page).toHaveURL('https://dev.ecoglan.fr/admin/adherents?search=&limit=10');
+        // await page.getByLabel('Afficher :').selectOption('50');
+        await page.getByRole('combobox', { name :'Afficher :'}).selectOption('50')
+
+        await page.goto('https://dev.ecoglan.fr/admin/adherents?search=&limit=50');
+        // await page.getByLabel('Afficher :').selectOption('100');
+        await page.getByRole('combobox', { name :'Afficher :'}).selectOption('100')
+        await page.goto('https://dev.ecoglan.fr/admin/adherents?search=&limit=100');
 });
 
     await test.step('Rechercher Adhérents', async () => {
+          await page.getByRole('searchbox', { name: 'Champ de recherche' }).fill('admin@test.fr');
 
-        await page.getByRole('searchbox', { name: 'Rechercher' }).fill('admin@test.fr');
-        await page.getByRole('searchbox', { name: 'Rechercher' }).press('Enter');
+        await page.getByRole('searchbox', { name: 'Champ de recherche' }).press('Enter');
 
         await expect(page.getByText('admin@test.fr')).toBeVisible();
     });

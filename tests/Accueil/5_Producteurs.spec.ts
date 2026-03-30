@@ -79,7 +79,7 @@ test('Test Producteur', async ({ page }) => {
         await page.getByTitle("Modifier l'utilisateur").first().click();
 
         await expect(page).toHaveTitle("Modifier le producteur");
-        await expect(page).toHaveURL('https://dev.ecoglan.fr/admin/users/producteur/22/edit');        
+        await expect(page).toHaveURL('https://dev.ecoglan.fr/admin/users/producteur/23/edit');        
 
 
        await expect(page.getByText('Nom de société', {exact :true}).first()).toBeVisible();

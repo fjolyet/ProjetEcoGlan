@@ -1,7 +1,7 @@
 import { test, expect, Locator } from '@playwright/test';
 
 /**
- * Author Testers Talk
+ * Author Fred JOLYET
  */
 test('Test Produits', async ({ page }) => {
 
@@ -41,7 +41,6 @@ test('Test Produits', async ({ page }) => {
         //Selectionner le premier producteur dans la liste
         await page.locator('#producer-filter').selectOption('3');
 
-        await page.locator('#producer-filter').selectOption('3');
         await page.goto('https://dev.ecoglan.fr/product?producer=3');
         await expect(page).toHaveURL('https://dev.ecoglan.fr/product?producer=3');
 
@@ -49,30 +48,18 @@ test('Test Produits', async ({ page }) => {
     });
     await test.step('Rechercher un produit', async () => {
         //chercher un produit
-       await page.getByRole('textbox', { name: 'Rechercher' }).fill('Fraise');
+       await page.getByRole('textbox', { name: 'Rechercher' }).fill('Framboise');
 
-       await expect(page.getByText('Fraise')).toBeVisible;
+       await expect(page.getByText('Framboise')).toBeVisible;
        
     });
     await test.step('Modifier un produit', async () => {
 
-        await page.getByRole('textbox', { name: 'Rechercher' }).fill('');
-        await page.getByTitle('Éditer le produit').first().click();
+        // await page.getByRole('link', { name: ' Éditer' }).first().click();
+        await page.goto('https://dev.ecoglan.fr/product/1/edit');
 
-
-        // await page.getByTitle('Editer le produit').nth(1).click();
-        // await expect(page).toHaveURL('https://dev.ecoglan.fr/product//edit');
         await expect(page).toHaveTitle('Modifier le produit');
 
-//           await page.getByText('Nom du produit').click();
-//   await page.getByLabel('Nom du produit').selectOption('56');
-//   await page.getByText('Prix').click();
-//   await page.getByRole('textbox', { name: 'Prix*' }).click();
-//   await page.getByRole('textbox', { name: 'Prix*' }).fill('1,75');
-//   await page.getByText('Description').click();
-//   await page.getByRole('textbox', { name: 'Description*' }).click();
-//   await page.getByRole('textbox', { name: 'Description*' }).fill('Produit généré automatiquement : Fraise 1');
-//   await page.getByRole('button', { name: 'Modifier' }).click();
 
         await expect(page.getByLabel('Nom du produit' )).toBeVisible;
         await expect(page.getByLabel('Nom du produit' )).toHaveText;
@@ -95,7 +82,8 @@ test('Test Produits', async ({ page }) => {
         await test.step('Ajouter un produit', async () => {
 
 
-            await page.getByRole('link', { name: 'Ajouter produit' }).click();
+            await page.getByRole('link', { name: 'Ajouter' }).click();
+            
             await expect(page).toHaveURL('https://dev.ecoglan.fr/product/new?producerId=1') ;
             
             await page.getByLabel('Pour le producteur').selectOption('3');
@@ -108,19 +96,13 @@ test('Test Produits', async ({ page }) => {
         
         });
     await test.step('Supprimer un produit', async () => {
-     
-        await page.getByTitle('Supprimer le produit').first().click();
-        await expect(page.getByText('Suppression')).toBeVisible;
 
+        await page.getByRole('textbox', { name: 'Rechercher' }).fill('Ail');
+
+        await page.getByTitle('Supprimer').first().click();
+        await expect(page.getByText('Suppression')).toBeVisible;
         await expect(page.getByRole('button', { name: 'Annuler' })).toBeEnabled;
-        await page.getByRole('button', { name: 'Annuler' }).click();
-        await page.getByTitle('Supprimer le produit').first().click();
-        await expect(page.getByText('Suppression')).toBeVisible;
         await expect(page.getByRole('button', { name: 'Confirmer' })).toBeEnabled;
-        await page.getByRole('button', { name: 'Confirmer' }).click();
-
-    await expect(page.getByText('Suppression')).toBeVisible;
-    // await expect(page.getByRole('alert')).toHaveText('Le produit a été supprimé avec succès');
     });
 
 

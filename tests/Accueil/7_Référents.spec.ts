@@ -36,10 +36,10 @@ test('Test Référents', async ({ page }) => {
 
         await page.getByRole('link', { name: 'Tous', exact: true }).click();
 
-        await page.getByRole('searchbox', { name: 'Rechercher' }).fill('MARCHAND');
+        await page.getByRole('searchbox', { name: 'Rechercher' }).fill('CRAIG');
         await page.getByRole('searchbox', { name: 'Rechercher' }).press('Enter');
 
-        await expect(page.getByText('Nom : MARCHAND')).toBeVisible();
+        await expect(page.getByText('Nom : CRAIG')).toBeVisible();
     });
 
     await test.step('Modifier le référent', async () => {
@@ -47,7 +47,7 @@ test('Test Référents', async ({ page }) => {
         await page.getByTitle("Modifier l'utilisateur").first().click();
 
         await expect(page).toHaveTitle("Modifier le référent");
-        await expect(page).toHaveURL('https://dev.ecoglan.fr/admin/users/referent/15/edit');        
+        await expect(page).toHaveURL('https://dev.ecoglan.fr/admin/users/referent/12/edit');        
 
 
        await expect(page.getByText('Prénom', {exact :true}).first()).toBeVisible();
@@ -108,7 +108,7 @@ test('Test Référents', async ({ page }) => {
     await test.step("Promouvoir l'utilisateur", async () => {
         await page.goto('https://dev.ecoglan.fr/admin/users/gleaner');        
 
-        await page.getByRole('searchbox', { name: 'Rechercher' }).fill('MARCHAND');
+        await page.getByRole('searchbox', { name: 'Rechercher' }).fill('CRAIG');
         await page.getByRole('searchbox', { name: 'Rechercher' }).press('Enter');
         await page.getByTitle('Promouvoir référent').first().click();
 
